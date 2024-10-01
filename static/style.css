@@ -1,0 +1,31 @@
+.heade {
+  font-size: 25;
+  color: yellow;
+  padding-left: 50px;
+  font-family: sans-serif;
+  text-transform: none;
+}
+.heade1 {
+  font-size: 25;
+  color: white;
+  font-family: sans-serif;
+  text-transform: none;
+}
+
+.pure-menu-list {
+  padding-left: 140px;
+  font-family: sans-serif;
+  font-size: 90%;
+}
+
+.status-container {
+  margin: 5rem;
+  padding: 4rem;
+  padding-left: 8rem;
+  padding-right: 8rem;
+}
+
+.alert {
+  margin-top: 100px;
+  margin-bottom: 0px;
+}

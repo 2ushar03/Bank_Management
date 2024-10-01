@@ -1,0 +1,101 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile</title>
+    <style>
+      /* Additional styles specific to this page */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ecf0f1; /* Light gray background */
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        color: #2c3e50; /* Dark blue text color */
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      form {
+        text-align: right;
+        margin-top: 20px;
+        margin-right: 20px;
+      }
+
+      .pure-control-group {
+        display: inline-block;
+        margin-right: 210px;
+      }
+
+      .pure-control-group p {
+        margin: 0;
+        display: inline; /* Ensure input field and button are on the same line */
+      }
+
+      .btn {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .btn:hover {
+        background-color: #2980b9;
+      }
+      .container {
+        margin-top: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Account Statement</h1>
+      <form class="pure-form pure-form-aligned" method="POST">
+        <div class="pure-control-group">
+          {{ form.hidden_tag() }}
+          <p>{{ form.search_query(size=15) }}</p>
+          {% for error in form.search_query.errors %}
+          <p class="error-message">{{ error }}</p>
+          {% endfor %}
+          <button class="btn" type="submit">Search</button>
+        </div>
+      </form>
+
+      <table
+        style="
+          margin: auto;
+          width: 70%;
+          border-collapse: collapse;
+          margin-top: 20px;
+          color: black;
+          border: 1px solid black;
+        "
+      >
+        <thead>
+          <tr style="background-color: #3498db; color: white; padding: 20px">
+            <th scope="col">Transaction ID</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date (YYYY-MM-DD)</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in acc %}
+          <tr>
+            <td style="text-align: center; padding: 10px">{{ d["id_no"] }}</td>
+            <td style="text-align: center">{{ d["description"] }}</td>
+            <td style="text-align: center">{{ d["datetime"] }}</td>
+            <td style="text-align: center">{{ d["amount"] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+{% include "footer.html" %}

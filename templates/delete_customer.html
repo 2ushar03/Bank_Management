@@ -1,0 +1,61 @@
+{% include "header.html"%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile</title>
+  </head>
+  <body >
+    <br>
+    <div class="container" style="padding-top: 50px;color: black">
+      {% with msg = get_flashed_messages(with_categories=true) %}
+      {% if msg %}
+          {% for category, msgs in msg%}
+             <center><div class = "alert alert-{{ category }}">
+                  <p>{{ msgs }}</p>
+              </div>
+            </center> 
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
+</div>
+    {% block content %}
+
+  <center>
+
+    <form class="pure-form pure-form-aligned" method="POST"  name="login">
+    <fieldset >
+      <h1 style="color: black;padding-top: 100px;"><center>Delete Customer </center></h1>
+        <div class="pure-control-group">
+          {{ form.hidden_tag() }}
+
+          <p style="color: black;"> {{ form.ssn_id.label }}    {{ form.ssn_id(size=17)  }}  
+            {% for error in form.ssn_id.errors %}
+            <span class="error-message">{{ error }}</span>
+           {% endfor %}
+          </p>
+          <p style="color: black;"> {{ form.customer_name.label }}    {{ form.customer_name(size=17)  }}  
+            {% for error in form.customer_name.errors %}
+            <span class="error-message">{{ error }}</span>
+           {% endfor %}
+          </p>
+          <p style="color: black;"> {{ form.age.label }}    {{ form.age(size=17)  }}  
+            {% for error in form.age.errors %}
+            <span class="error-message">{{ error }}</span>
+           {% endfor %}
+          </p>
+          <p style="color: black;"> {{ form.address.label }}  {{ form.address(size=40)  }}  
+            {% for error in form.address.errors %}
+            <span class="error-message">{{ error }}</span>
+           {% endfor %}
+          </p>
+
+          <p style="color: black;"> {{ form.submit() }}   </p>
+        </div>
+
+    </fieldset>
+</form>
+</center>
+ {% endblock %}
+  </body>
+  {%include "footer.html"%}
+</html>

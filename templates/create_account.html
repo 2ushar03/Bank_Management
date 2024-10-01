@@ -1,0 +1,85 @@
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile</title>
+  </head>
+  <body>
+    <br />
+    <div class="container" style="padding-top: 50px; color: black">
+      {% with msg = get_flashed_messages(with_categories=true) %} {% if msg %}
+      {% for category, msgs in msg%}
+      <center>
+        <div class="alert alert-{{ category }}">
+          <p>{{ msgs }}</p>
+        </div>
+      </center>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+
+    {% block content %}
+    <form
+      class="pure-form pure-form-aligned"
+      method="POST"
+      style="text-align: center"
+    >
+      <fieldset>
+        <h1 style="color: black; padding-top: 100px">
+          <center>Create Account</center>
+        </h1>
+        <div
+          class="pure-control-group"
+          style="
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+          "
+        >
+          {{ form.hidden_tag() }}
+          <div>
+            <p style="color: black">
+              {{ form.customer_id.label }} {{ form.customer_id(size=20) }} {%
+              for error in form.customer_id.errors %}
+              <span class="error-message">{{ error }}</span>
+              {% endfor %}
+            </p>
+          </div>
+          <div>
+            <p style="color: black">
+              {{ form.account_type.label }}
+              <select
+                name="account_type"
+                id="account_type"
+                style="width: 200px"
+              >
+                <option value="savings">Savings</option>
+                <option value="current">Current</option>
+              </select>
+              {% for error in form.account_type.errors %}
+              <span class="error-message">{{ error }}</span>
+              {% endfor %}
+            </p>
+          </div>
+          <div>
+            <p style="color: black">
+              {{ form.deposit_amount.label }} {{ form.deposit_amount(size=20) }}
+              {% for error in form.deposit_amount.errors %}
+              <span class="error-message">{{ error }}</span>
+              {% endfor %}
+            </p>
+          </div>
+          <div>
+            <span class="pure-form-message-inline" style="color: red"
+              >All fields are required field.</span
+            >
+            <p style="color: black">{{ form.submit() }}</p>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    {% endblock %}
+  </body>
+  {%include "footer.html"%}
+</html>

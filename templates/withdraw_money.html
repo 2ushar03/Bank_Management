@@ -1,0 +1,59 @@
+{% include "header.html"%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deposit Money</title>
+  </head>
+  <body >
+    <br>
+    <div class="container" style="padding-top: 50px;color: black">
+      {% with msg = get_flashed_messages(with_categories=true) %}
+      {% if msg %}
+          {% for category, msgs in msg%}
+             <center><div class = "alert alert-{{ category }}">
+                  <p>{{ msgs }}</p>
+              </div>
+            </center> 
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
+</div>
+    {% block content %}
+   <form class="pure-form pure-form-aligned" method="POST">
+    <fieldset style="position: center">
+      <h1 style="color: black;padding-top: 100px;"><center>Withdraw Money</center></h1>
+    <center>
+       <div class="pure-control-group" style="padding-right: 150px;">
+        
+         {{ form.hidden_tag() }}
+
+           <p style="color: black;"> {{ form.account_id.label }}   {{ form.account_id(size=15)  }}  
+            {% for error in form.account_id.errors %}
+            <span class="error-message">{{ error }}</span>
+           {% endfor %}
+         </p>
+
+           <p style="color: black;"> {{ form.withdraw_amount.label }}   {{ form.withdraw_amount(size=15)  }}  
+            {% for error in form.withdraw_amount.errors %}
+            <span class="error-message">{{ error }}</span>
+           {% endfor %}
+          </p>
+         
+           <span style="color: red;padding-left: 250px;">All Fields are mandatory</span>
+          <p style="color: black;padding-left: 210px;"> {{ form.submit() }}   </p>
+        </div>
+              
+
+    </fieldset>
+  </center>
+</form>
+
+
+    
+    
+  
+
+   {% endblock %}
+  </body>
+  {%include "footer.html"%}
+</html>

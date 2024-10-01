@@ -1,0 +1,92 @@
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transactions</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <style>
+      /* Additional styles specific to this page */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ecf0f1; /* Light gray background */
+        margin: 0;
+        padding: 0;
+      }
+
+      .status-container {
+        max-width: 1200px;
+        margin: 150px auto;
+        padding: 20px;
+        background-color: #fff; /* White background */
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+      }
+
+      h1 {
+        color: #2c3e50; /* Dark blue text color */
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #3498db; /* Blue color for table headers */
+        color: #fff; /* White text color for table headers */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="status-container">
+      <h1>Transactions</h1>
+      <table>
+        <form action="/filter_transactions" method="POST">
+          <label for="start_date">Start Date:</label>
+          <input type="date" id="start_date" name="start_date" />
+          <label for="end_date">End Date:</label>
+          <input type="date" id="end_date" name="end_date" />
+          <input type="submit" value="Filter" />
+        </form>
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>SSN ID</th>
+            <th>Description</th>
+            <th>Date & Time</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in transactions %}
+          <tr>
+            <td>{{ transaction.id_no }}</td>
+            <td>{{ transaction.name }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.datetime }}</td>
+            <td>{{ transaction.amount }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+  {% include "footer.html" %}
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Customer Screen</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+      integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <style type="text/css">
+      .heade {
+        font-size: 25px;
+        color: #ffffff; /* White text color */
+        padding-left: 50px;
+        font-family: Arial, sans-serif; /* Use a common sans-serif font */
+        text-transform: none;
+        margin: 0; /* Remove default margin */
+      }
+
+      .pure-menu-list {
+        padding-left: 140px;
+        font-family: Arial, sans-serif; /* Use a common sans-serif font */
+        font-size: 90%;
+        margin: 0; /* Remove default margin */
+      }
+
+      .dropbtn {
+        background-color: #3498db; /* Blue color for dropdown button */
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+
+      .dropdown:hover .dropbtn {
+        background-color: #2980b9; /* Darker blue on hover */
+      }
+
+      .dropbtn:hover {
+        background-color: #2980b9;
+      }
+
+      .pure-control-group {
+        padding-left: 100px;
+      }
+    </style>
+  </head>
+  <body style="background-color: #ecf0f1">
+    <!-- Light gray background -->
+    <div class="header">
+      <div
+        class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed"
+        style="background-color: #2c3e50; /* Dark blue background */"
+      >
+        <a class="pure-menu-heading heade" href="">
+          <font><strong>BestChoice </strong></font>
+          <strong>Bank</strong>
+        </a>
+        <br />
+        <div style="background-color: #3498db">
+          <!-- Blue background for navigation -->
+          <a class="pure-menu-heading" href=""></a>
+
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item dropbtn">
+              <a href="{{url_for('home')}}" style="color: white">Home</a>
+            </li>
+
+            <div class="dropdown">
+              <li class="dropbtn">Customer Management</li>
+              <div class="dropdown-content">
+                <a href="{{url_for ('customer')}}">Create Customer</a>
+                <a href="{{url_for ('update_customer')}}">Update Customer</a>
+                <a href="{{url_for ('delete_customer')}}">Delete Customer </a>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <li class="dropbtn">Account Management</li>
+              <div class="dropdown-content">
+                <a href="{{url_for ('create_account')}}">Create Account</a>
+                <a href="{{url_for ('delete_account')}}">Delete Account</a>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <li class="dropbtn">Status Details</li>
+              <div class="dropdown-content">
+                <a href="{{url_for ('account_status')}}">Account Status</a>
+                <a href="{{url_for ('customer_status')}}">Customer Status</a>
+                <a href="/show_transactions">Show Transactions</a>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <li class="dropbtn">Account Operations</li>
+              <div class="dropdown-content">
+                <a href="{{url_for ('deposit_money')}}">Deposit Money</a>
+                <a href="{{url_for ('transfer_money')}}">Transfer Money</a>
+                <a href="{{url_for ('withdraw_money')}}">Withdraw Money</a>
+                <!-- Corrected typo -->
+                <a href="{{url_for('account_summary')}}">Account Summary</a>
+              </div>
+            </div>
+
+            {% if not session['id'] %}
+            <li class="pure-menu-item">
+              <a
+                href="{{ url_for('login_enter') }}"
+                class="pure-menu-link{% if login%}active{% endif %}"
+                >Login</a
+              >
+            </li>
+            {% else %}
+            <li class="pure-menu-item">
+              <a
+                href="{{ url_for('logout_out') }}"
+                class="pure-menu-link dropbtn {% if logout%}active{% endif %}"
+                style="color: white"
+                >Logout</a
+              >
+            </li>
+            {%endif%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

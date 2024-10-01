@@ -1,0 +1,144 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <style>
+      /* Additional styles specific to this page */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #ecf0f1; /* Light gray background */
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 50px;
+        text-align: center;
+      }
+
+      h1 {
+        color: black;
+        /* padding-top: 20px; */
+        text-align: left; /* Align the heading to the left */
+      }
+
+      .alert {
+        text-align: center;
+      }
+
+      /* Table styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        /* margin-top: 20px; */
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #3498db; /* Blue color */
+        color: white;
+      }
+
+      .form-wrapper {
+        text-align: right; /* Align the form to the right */
+        /* margin-top: 20px; */
+      }
+
+      .pure-control-group {
+        display: inline-block; /* Display inline-block to put input and button on the same line */
+        vertical-align: top; /* Aligns elements at the top */
+      }
+
+      .pure-control-group p {
+        margin: 0;
+        display: inline; /* Ensure input field and button are on the same line */
+      }
+
+      .error-message {
+        color: red;
+      }
+
+      .btn {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .btn:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      {% with msg = get_flashed_messages(with_categories=true) %} {% if msg %}
+      {% for category, msgs in msg %}
+      <div class="alert alert-{{ category }}">
+        <p>{{ msgs }}</p>
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+      <h1>Customer Status</h1>
+      <!-- Heading aligned to the left -->
+      <div class="form-wrapper">
+        <form class="pure-form pure-form-aligned" method="POST">
+          <fieldset>
+            <div class="pure-control-group">
+              {{ form.hidden_tag() }}
+              <p>{{ form.search_query(size=15) }}</p>
+              {% for error in form.search_query.errors %}
+              <p class="error-message">{{ error }}</p>
+              {% endfor %}
+              <button class="btn" type="submit">Search</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Customer SSN ID</th>
+            <th>Customer Name</th>
+            <th>Status</th>
+            <th>Message</th>
+            <th>Last Updated</th>
+            <th>Operations</th>
+            <th>View Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in accs %}
+          <tr>
+            <td>{{ d["ssn_id"] }}</td>
+            <td>{{ d["customer_name"] }}</td>
+            <td>Active</td>
+            <td>{{ d["message"] }}</td>
+            <td>{{ d["datetime"] }}</td>
+            <td><a href="#">Refresh</a></td>
+            <td><a href="#">View Details</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+{% include "footer.html" %}
